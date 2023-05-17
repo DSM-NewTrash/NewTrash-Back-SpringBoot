@@ -1,0 +1,43 @@
+package com.dsm.newtrash.back.springboot.global.jwt;
+
+import java.io.IOException;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public class JwtTokenFilter extends OncePerRequestFilter {
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    private static final String HEADER = "Authorization";
+
+    private static final String PREFIX = "Bearer";
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws
+        ServletException, IOException {
+        String token = resolveToken(request);
+
+        if(token != null && jwtTokenProvider.validateToken(token)) {
+            SecurityContextHolder.getContext().setAuthentication(jwtTokenProvider.getAuthentication(token));
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(HEADER);
+        if (bearerToken != null && bearerToken.startsWith(PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+}
