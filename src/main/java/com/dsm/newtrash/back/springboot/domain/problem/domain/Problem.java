@@ -37,20 +37,20 @@ public class Problem extends BaseIdEntity {
 
 	private String path;
 
-	private Long quiz_id;
+	private Long quizId;
 
-	@OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy = "problem", cascade = CascadeType.REMOVE, orphanRemoval=true)
 	private List<Answer> answers;
 
 
 	@Builder
-	private Problem(Form form, String question, int correctAnswer, String explanation, String path, Long quiz_id) {
+	private Problem(Form form, String question, int correctAnswer, String explanation, String path, Long quizId) {
 		this.form = form;
 		this.question = question;
 		this.correctAnswer = correctAnswer;
 		this.explanation = explanation;
 		this.path = path;
-		this.quiz_id = quiz_id;
+		this.quizId = quizId;
 	}
 
 }
