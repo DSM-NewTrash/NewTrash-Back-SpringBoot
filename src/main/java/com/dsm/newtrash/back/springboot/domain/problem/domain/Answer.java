@@ -28,7 +28,7 @@ public class Answer extends BaseIdEntity {
 
 
 	@Builder
-	private Answer(String answer, Problem problem) {
+	public Answer(String answer, Problem problem) {
 		this.answer = answer;
 		this.problem = problem;
 	}
