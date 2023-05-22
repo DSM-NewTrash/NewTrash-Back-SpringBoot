@@ -33,10 +33,11 @@ public class Quiz extends BaseIdEntity {
 
 
 	@Builder
-	private Quiz(String title, String introduction, String path) {
+	private Quiz(String title, String introduction, String path, CategoryType category) {
 		this.title = title;
 		this.introduction = introduction;
 		this.path = path;
+		this.category = category;
 	}
 
 }
