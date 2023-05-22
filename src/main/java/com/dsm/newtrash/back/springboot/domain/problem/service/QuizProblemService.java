@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dsm.newtrash.back.springboot.domain.problem.domain.Problem;
@@ -36,7 +37,10 @@ public class QuizProblemService {
 					.quizId(quizId)
 					.build()
 		);
-		answerService.saveAllAnswer(problem, request.getAnswers());
+
+		if(Form.valueOf(request.getForm()).equals(Form.MULTIPLE_CHOICE_QUIZ)) {
+			answerService.saveAllAnswer(problem, request.getAnswers());
+		}
 	}
 
 	public void deleteAllProblem(Long quizId) {
