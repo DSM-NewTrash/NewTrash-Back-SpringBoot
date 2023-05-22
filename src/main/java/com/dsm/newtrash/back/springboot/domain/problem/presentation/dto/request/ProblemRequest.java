@@ -2,6 +2,7 @@ package com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class ProblemRequest {
 	@NotBlank(message = "입력해주세요.")
 	private String path;
 
+	@Valid
 	private List<AnswerRequest> answers;
 
 }
