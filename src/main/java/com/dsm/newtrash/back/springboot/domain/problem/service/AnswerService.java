@@ -3,6 +3,8 @@ package com.dsm.newtrash.back.springboot.domain.problem.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsm.newtrash.back.springboot.domain.problem.domain.Answer;
 import com.dsm.newtrash.back.springboot.domain.problem.domain.Problem;
@@ -17,6 +19,7 @@ public class AnswerService {
 
 	private final AnswerRepository answerRepository;
 
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.MANDATORY)
 	public void saveAllAnswer(Problem problem, List<AnswerRequest> answers) {
 		answerRepository.saveAll(answers.stream()
 			.map(answer -> {

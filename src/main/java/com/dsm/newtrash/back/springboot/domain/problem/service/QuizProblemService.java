@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsm.newtrash.back.springboot.domain.problem.domain.Problem;
 import com.dsm.newtrash.back.springboot.domain.problem.domain.repository.ProblemRepository;
@@ -24,7 +25,8 @@ public class QuizProblemService {
 	private final AnswerService answerService;
 	private final ImageUtil imageUtil;
 
-	public void saveAllProblem(Long quizId, ProblemRequest request) {
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.MANDATORY)
+	public void saveProblem(Long quizId, ProblemRequest request) {
 		Problem problem = problemRepository.save(Problem.builder()
 					.form(Form.valueOf(request.getForm()))
 					.question(request.getQuestion())
