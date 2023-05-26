@@ -3,6 +3,8 @@ package com.dsm.newtrash.back.springboot.domain.user.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,6 +20,9 @@ public class User {
 	@Id
 	private String id;
 
+	@Column(nullable = false, length = 12)
+	private String nickname;
+
 	@Column(nullable = false, length = 60)
 	private String password;
 
@@ -27,24 +32,44 @@ public class User {
 	private String introduce;
 
 	@Column(nullable = false)
-	private int level;
+	private int point;
 
 	@Column(nullable = false)
-	private int point;
+	private int exp;
+
+	@Column(nullable = false)
+	private boolean isCertificate;
 
 	@Column(nullable = false)
 	private int quizLimitCount;
 
+	@OneToOne
+	@JoinColumn(name = "badge_id")
+	private Badge badge;
+
 
 	@Builder
-	private User(String id, String password, String profile, String introduce, int level, int point, int quizLimitCount) {
+	private User(String id, String nickname, String password, String profile, String introduce,
+					int point, int exp, boolean isCertificate, int quizLimitCount, Badge badge) {
 		this.id = id;
+		this.nickname = nickname;
 		this.password = password;
 		this.profile = profile;
 		this.introduce = introduce;
-		this.level = level;
 		this.point = point;
+		this.exp = exp;
+		this.isCertificate = isCertificate;
 		this.quizLimitCount = quizLimitCount;
+		this.badge = badge;
+	}
+
+	public void updatePointAndExp(int point, int exp) {
+		this.point = point;
+		this.exp = exp;
+	}
+
+	public void updateBadge(Badge badge) {
+		this.badge = badge;
 	}
 
 }
