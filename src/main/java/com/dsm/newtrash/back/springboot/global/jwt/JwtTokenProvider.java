@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
 import com.dsm.newtrash.back.springboot.global.jwt.exception.TokenUnauthorizedException;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -23,19 +21,8 @@ public class JwtTokenProvider {
 
     @Value("${auth.jwt.secret}")
     private String secretKey;
-
-    @Value("${auth.jwt.exp.refresh}")
-    private Long tokenTime;
     
     private final UserDetailsService userDetailsService;
-
-    public String generateToken() {
-        return Jwts.builder()
-                .setExpiration(new Date(System.currentTimeMillis() + tokenTime * 1000))
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
 
     public Authentication getAuthentication(String accessToken) {
         UserDetails details = userDetailsService.loadUserByUsername("");
