@@ -9,5 +9,5 @@ import com.dsm.newtrash.back.springboot.domain.problem.domain.Problem;
 
 public interface ProblemRepository extends CrudRepository<Problem, Long> {
 	List<Problem> findAllByQuizId(Long quizId);
-	Optional<Problem> findByQuizId(Long quizId);
+	int countByQuizId(Long quizId);
 }

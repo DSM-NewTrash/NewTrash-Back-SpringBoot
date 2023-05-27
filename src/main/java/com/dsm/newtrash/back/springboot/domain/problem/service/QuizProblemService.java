@@ -13,6 +13,7 @@ import com.dsm.newtrash.back.springboot.domain.problem.domain.type.Form;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request.ProblemRequest;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.AnswerResponse;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemResponses;
+import com.dsm.newtrash.back.springboot.domain.user.service.UserService;
 import com.dsm.newtrash.back.springboot.global.util.ImageUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class QuizProblemService {
 
 	private final ProblemRepository problemRepository;
 
+	private final UserService userService;
 	private final AnswerService answerService;
 	private final ImageUtil imageUtil;
 
@@ -43,12 +45,17 @@ public class QuizProblemService {
 		} else problem.updateCorrectAnswer((long)request.getCorrectAnswer());
 	}
 
+	@Transactional(propagation = Propagation.MANDATORY)
 	public void deleteAllProblem(Long quizId) {
 		List<Problem> problems = problemRepository.findAllByQuizId(quizId);
 		problemRepository.deleteAll(problems);
 	}
 
-	public ProblemResponses finadProblemByQuizId(Long quizId) {
+	@Transactional(readOnly = true)
+	public ProblemResponses findProblemByQuizId(Long quizId) {
+		int totalProblem = problemRepository.countByQuizId(quizId);
+		userService.isQuizLimitCount(totalProblem);
+
 		List<ProblemResponses.ProblemResponse> problems = problemRepository.findAllByQuizId(quizId).stream()
 			.map(problem -> {
 				return ProblemResponses.ProblemResponse.builder()
@@ -56,14 +63,14 @@ public class QuizProblemService {
 					.form(problem.getForm().name())
 					.question(problem.getQuestion())
 					.correctAnswer(problem.getCorrectAnswer())
-					.image(imageUtil.getImage(problem.getPath()))
+					.image(imageUtil.getProblemDefaultImage(problem.getPath()))
 					.answers(problem.getAnswers().stream()
 						.map(answer -> new AnswerResponse(answer.getAnswer()))
 						.collect(Collectors.toList()))
 					.build();
 			}).toList();
 
-		return new ProblemResponses(problems.size(), problems);
+		return new ProblemResponses(totalProblem, problems);
 	}
 
 }
