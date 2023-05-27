@@ -1,5 +1,6 @@
 package com.dsm.newtrash.back.springboot.domain.problem.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dsm.newtrash.back.springboot.domain.problem.domain.type.Form;
@@ -41,7 +42,7 @@ public class Problem extends BaseIdEntity {
 	private Long quizId;
 
 	@OneToMany(mappedBy = "problem", cascade = CascadeType.REMOVE, orphanRemoval=true)
-	private List<Answer> answers;
+	private List<Answer> answers = new ArrayList<Answer>();
 
 
 	@Builder
