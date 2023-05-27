@@ -38,6 +38,11 @@ public class QuizService {
 		}
 	}
 
-}
+	@Transactional
+	public void deleteQuiz(Long quizId) {
+		Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> QuizNotFoundException.EXCEPTION);
+		quizRepository.delete(quiz);
+		quizProblemService.deleteAllProblem(quizId);
+	}
 
 }
