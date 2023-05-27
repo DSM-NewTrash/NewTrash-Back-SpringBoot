@@ -1,4 +1,4 @@
-package com.dsm.newtrash.back.springboot.domain.quiz.review.domain;
+package com.dsm.newtrash.back.springboot.domain.review.domain;
 
 import com.dsm.newtrash.back.springboot.global.Entity.BaseIdEntity;
 
@@ -20,16 +20,19 @@ public class Review extends BaseIdEntity {
 	private Long quizId;
 
 	@Column(nullable = false)
-	private Long userId;
+	private String userId;
 
-	@Column(nullable = false)
 	private int star;
 
 
 	@Builder
-	public Review(Long quizId, Long userId, int star) {
+	public Review(Long quizId, String userId) {
 		this.quizId = quizId;
 		this.userId = userId;
+		this.star = 0;
+	}
+
+	public void update(int star) {
 		this.star = star;
 	}
 
