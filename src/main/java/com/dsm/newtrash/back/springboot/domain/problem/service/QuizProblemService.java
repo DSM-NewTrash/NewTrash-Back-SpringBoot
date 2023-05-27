@@ -31,7 +31,6 @@ public class QuizProblemService {
 		Problem problem = problemRepository.save(Problem.builder()
 					.form(Form.valueOf(request.getForm()))
 					.question(request.getQuestion())
-					.correctAnswer(request.getCorrectAnswer())
 					.explanation(request.getExplanation())
 					.path(request.getPath())
 					.quizId(quizId)
@@ -39,8 +38,9 @@ public class QuizProblemService {
 		);
 
 		if(Form.valueOf(request.getForm()).equals(Form.MULTIPLE_CHOICE_QUIZ)) {
-			answerService.saveAllAnswer(problem, request.getAnswers());
-		}
+			Long answerId = answerService.saveAllAnswer(problem, request.getAnswers(), request.getCorrectAnswer());
+			problem.updateCorrectAnswer(answerId);
+		} else problem.updateCorrectAnswer((long)request.getCorrectAnswer());
 	}
 
 	public void deleteAllProblem(Long quizId) {

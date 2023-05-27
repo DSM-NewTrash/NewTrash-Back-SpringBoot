@@ -20,11 +20,11 @@ public class AnswerService {
 	private final AnswerRepository answerRepository;
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.MANDATORY)
-	public void saveAllAnswer(Problem problem, List<AnswerRequest> answers) {
-		answerRepository.saveAll(answers.stream()
+	public Long saveAllAnswer(Problem problem, List<AnswerRequest> answers, int correctAnswer) {
+		return answerRepository.saveAll(answers.stream()
 			.map(answer -> {
 				return new Answer(answer.getAnswer(), problem);
-			}).toList());
+			}).toList()).get(correctAnswer).getId();
 	}
 
 }
