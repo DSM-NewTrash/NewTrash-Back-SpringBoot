@@ -19,9 +19,10 @@ public class ProblemResponses {
 		private final Long id;
 		private final String form;
 		private final String question;
-		private final int correctAnswer;
+		private final long correctAnswer;
 		private final String image;
 		private final List<AnswerResponse> answers;
+
 	}
 
 }

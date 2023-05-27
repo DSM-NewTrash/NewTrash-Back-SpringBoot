@@ -30,7 +30,8 @@ public class Problem extends BaseIdEntity {
 	@Column(nullable = false, length = 30)
 	private String question;
 
-	private int correctAnswer;
+	@Column(nullable = false)
+	private Long correctAnswer;
 
 	@Column(nullable = false, length = 50)
 	private String explanation;
@@ -44,13 +45,16 @@ public class Problem extends BaseIdEntity {
 
 
 	@Builder
-	private Problem(Form form, String question, int correctAnswer, String explanation, String path, Long quizId) {
+	private Problem(Form form, String question, Long correctAnswer, String explanation, String path, Long quizId) {
 		this.form = form;
 		this.question = question;
-		this.correctAnswer = correctAnswer;
 		this.explanation = explanation;
 		this.path = path;
 		this.quizId = quizId;
+	}
+
+	public void updateCorrectAnswer(Long correctAnswer) {
+		this.correctAnswer = correctAnswer;
 	}
 
 }
