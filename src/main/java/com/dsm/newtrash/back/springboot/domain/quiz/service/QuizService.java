@@ -8,7 +8,9 @@ import com.dsm.newtrash.back.springboot.domain.problem.service.QuizProblemServic
 import com.dsm.newtrash.back.springboot.domain.quiz.domain.Quiz;
 import com.dsm.newtrash.back.springboot.domain.quiz.domain.repository.QuizRepository;
 import com.dsm.newtrash.back.springboot.domain.quiz.domain.type.CategoryType;
+import com.dsm.newtrash.back.springboot.domain.quiz.exception.QuizNotFoundException;
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.request.QuizRequest;
+import com.dsm.newtrash.back.springboot.domain.user.service.util.UserUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class QuizService {
 
 	private final QuizRepository quizRepository;
+	private final UserUtil userUtil;
 	private final QuizProblemService quizProblemService;
 
 	@Transactional(rollbackFor = Exception.class)
@@ -26,12 +29,15 @@ public class QuizService {
 			.introduction(request.getIntroduction())
 			.path(request.getPath())
 			.category(CategoryType.valueOf(request.getCategory()))
+			.user(userUtil.getUser())
 			.build()
 		).getId();
 
-		for(ProblemRequest problem : request.getProblems()) {
+		for (ProblemRequest problem : request.getProblems()) {
 			quizProblemService.saveProblem(quizId, problem);
 		}
 	}
+
+}
 
 }
