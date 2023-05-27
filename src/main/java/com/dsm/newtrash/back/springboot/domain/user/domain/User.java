@@ -37,8 +37,10 @@ public class User {
 	@Column(nullable = false)
 	private int exp;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TINYINT")
 	private boolean isCertificate;
+
+	private String certificate;
 
 	@Column(nullable = false)
 	private int quizLimitCount;
@@ -50,7 +52,7 @@ public class User {
 
 	@Builder
 	private User(String id, String nickname, String password, String profile, String introduce,
-					int point, int exp, boolean isCertificate, int quizLimitCount, Badge badge) {
+					int point, int exp, boolean isCertificate, String certificate, int quizLimitCount, Badge badge) {
 		this.id = id;
 		this.nickname = nickname;
 		this.password = password;
@@ -59,6 +61,7 @@ public class User {
 		this.point = point;
 		this.exp = exp;
 		this.isCertificate = isCertificate;
+		this.certificate = certificate;
 		this.quizLimitCount = quizLimitCount;
 		this.badge = badge;
 	}
@@ -70,6 +73,10 @@ public class User {
 
 	public void updateBadge(Badge badge) {
 		this.badge = badge;
+	}
+
+	public void updateQuizLimitCount(int totalProblem) {
+		this.quizLimitCount -= totalProblem;
 	}
 
 }
