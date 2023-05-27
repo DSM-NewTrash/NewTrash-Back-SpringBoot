@@ -3,6 +3,7 @@ package com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request
 import java.util.List;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -17,6 +18,7 @@ public class ProblemRequest {
 	@Size(max = 30, message = "30자 이하로 입력해주세요.")
 	private String question;
 
+	@Max(value = 5)
 	private int correctAnswer;
 
 	@NotBlank(message = "입력해주세요.")
