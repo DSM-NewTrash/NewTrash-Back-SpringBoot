@@ -9,11 +9,18 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class ImageUtil {
 
-	@Value("${s3.default.image}")
-	private String defaultImage;
+	@Value("${s3.default.image.quiz}")
+	private String quizDefaultImage;
 
-	public String getImage(String image) {
-		return (image.isEmpty()) ? defaultImage : image;
+	@Value("${s3.default.image.problem}")
+	private String problemDefaultImage;
+
+	public String getQuizDefaultImage(String image) {
+		return (image.isEmpty()) ? quizDefaultImage : image;
+	}
+
+	public String getProblemDefaultImage(String image) {
+		return (image.isEmpty()) ? problemDefaultImage : image;
 	}
 
 }
