@@ -29,7 +29,7 @@ public class QuizRequest {
 
 	@Valid
 	@NotNull(message = "입력해주세요.")
-	@Size(min = 5, max = 30, message = "입력해주세요.")
+	@Size(min = 5, max = 30, message = "5개 이상 30개 이하로 입력해주세요.")
 	List<ProblemRequest> problems;
 
 
