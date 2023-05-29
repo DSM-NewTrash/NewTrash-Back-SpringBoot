@@ -33,7 +33,11 @@ public class SecurityConfig {
             .httpBasic().disable()
 
             .authorizeHttpRequests(request -> request
-                .requestMatchers(HttpMethod.POST, " ").authenticated()
+                .requestMatchers(HttpMethod.POST, "/quizs").authenticated()
+                .requestMatchers(HttpMethod.GET, "/quizs/**}").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/quizs/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/quizs/adjustment/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/quizs/review/**").authenticated()
                 .anyRequest().permitAll()
             )
 
