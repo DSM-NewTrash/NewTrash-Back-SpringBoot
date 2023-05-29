@@ -29,7 +29,7 @@ public class QuizUserService {
 
 		if(user.getQuizLimitCount() < request.getTotalProblem()) throw UserNotSolveQuizException.EXCEPTION;
 
-		if(reviewService.isReviewEmpty(user.getId())) {
+		if(!reviewService.isReviewEmpty(user.getId())) {
 			reviewService.saveReview(quizId, user.getId());
 
 			int point = request.getCorrectAnswer()*5;
