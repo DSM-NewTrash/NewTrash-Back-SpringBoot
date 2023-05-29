@@ -9,6 +9,7 @@ public class UpdatePointAndExpRequest {
 	@Max(value = 30)
 	private int correctAnswer;
 
+	@Max(value = 30)
 	private int totalProblem;
 
 }
