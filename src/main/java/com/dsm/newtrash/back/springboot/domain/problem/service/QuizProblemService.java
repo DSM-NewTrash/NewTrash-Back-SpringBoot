@@ -13,7 +13,10 @@ import com.dsm.newtrash.back.springboot.domain.problem.domain.type.Form;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request.ProblemRequest;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.AnswerResponse;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemResponses;
-import com.dsm.newtrash.back.springboot.domain.user.service.UserService;
+import com.dsm.newtrash.back.springboot.domain.review.service.ReviewService;
+import com.dsm.newtrash.back.springboot.domain.user.domain.User;
+import com.dsm.newtrash.back.springboot.domain.user.exception.UserNotSolveQuizException;
+import com.dsm.newtrash.back.springboot.domain.user.service.util.UserUtil;
 import com.dsm.newtrash.back.springboot.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
@@ -24,9 +27,10 @@ public class QuizProblemService {
 
 	private final ProblemRepository problemRepository;
 
-	private final UserService userService;
 	private final AnswerService answerService;
+	private final ReviewService reviewService;
 	private final S3Util s3Util;
+	private final UserUtil userUtil;
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.MANDATORY)
 	public void saveProblem(Long quizId, ProblemRequest request) {
@@ -54,7 +58,10 @@ public class QuizProblemService {
 	@Transactional(readOnly = true)
 	public ProblemResponses findProblemByQuizId(Long quizId) {
 		int totalProblem = problemRepository.countByQuizId(quizId);
-		userService.isQuizLimitCount(totalProblem);
+		User user = userUtil.getUser();
+		if (!reviewService.isReviewEmpty(user.getId())){
+			if (userUtil.getUser().getQuizLimitCount() < totalProblem) throw UserNotSolveQuizException.EXCEPTION;
+		}
 
 		List<ProblemResponses.ProblemResponse> problems = problemRepository.findAllByQuizId(quizId).stream()
 			.map(problem -> {

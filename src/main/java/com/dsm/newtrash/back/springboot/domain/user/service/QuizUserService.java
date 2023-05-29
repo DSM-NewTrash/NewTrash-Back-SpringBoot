@@ -27,8 +27,6 @@ public class QuizUserService {
 	public UserResponse updatePointAndExp(Long quizId, UpdatePointAndExpRequest request) {
 		User user = userUtil.getUser();
 
-		if(user.getQuizLimitCount() < request.getTotalProblem()) throw UserNotSolveQuizException.EXCEPTION;
-
 		if(!reviewService.isReviewEmpty(user.getId())) {
 			reviewService.saveReview(quizId, user.getId());
 
