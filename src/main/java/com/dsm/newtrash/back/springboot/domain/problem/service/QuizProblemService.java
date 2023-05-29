@@ -65,7 +65,7 @@ public class QuizProblemService {
 					.correctAnswer(problem.getCorrectAnswer())
 					.image(s3Util.getProblemDefaultImage(problem.getPath()))
 					.answers(problem.getAnswers().stream()
-						.map(answer -> new AnswerResponse(answer.getAnswer()))
+						.map(answer -> new AnswerResponse(answer.getId(), answer.getAnswer()))
 						.collect(Collectors.toList()))
 					.build();
 			}).toList();
