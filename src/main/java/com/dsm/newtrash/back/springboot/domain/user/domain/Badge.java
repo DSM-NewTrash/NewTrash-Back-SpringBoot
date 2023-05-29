@@ -14,7 +14,7 @@ public class Badge {
 	@Id
 	private Integer level;
 
-	@Column(nullable = false, length = 7)
+	@Column(nullable = false)
 	private String name;
 
 	@Column(nullable = false)
