@@ -31,7 +31,6 @@ public class Problem extends BaseIdEntity {
 	@Column(nullable = false, length = 30)
 	private String question;
 
-	@Column(nullable = false)
 	private Long correctAnswer;
 
 	@Column(nullable = false, length = 50)
