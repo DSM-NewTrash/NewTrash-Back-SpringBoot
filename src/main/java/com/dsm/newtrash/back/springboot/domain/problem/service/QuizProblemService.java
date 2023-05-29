@@ -14,7 +14,7 @@ import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request.
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.AnswerResponse;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemResponses;
 import com.dsm.newtrash.back.springboot.domain.user.service.UserService;
-import com.dsm.newtrash.back.springboot.global.util.ImageUtil;
+import com.dsm.newtrash.back.springboot.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +26,7 @@ public class QuizProblemService {
 
 	private final UserService userService;
 	private final AnswerService answerService;
-	private final ImageUtil imageUtil;
+	private final S3Util s3Util;
 
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.MANDATORY)
 	public void saveProblem(Long quizId, ProblemRequest request) {
@@ -63,7 +63,7 @@ public class QuizProblemService {
 					.form(problem.getForm().name())
 					.question(problem.getQuestion())
 					.correctAnswer(problem.getCorrectAnswer())
-					.image(imageUtil.getProblemDefaultImage(problem.getPath()))
+					.image(s3Util.getProblemDefaultImage(problem.getPath()))
 					.answers(problem.getAnswers().stream()
 						.map(answer -> new AnswerResponse(answer.getAnswer()))
 						.collect(Collectors.toList()))
