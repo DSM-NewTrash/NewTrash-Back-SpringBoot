@@ -2,6 +2,8 @@ package com.dsm.newtrash.back.springboot.domain.report.environment.domain.reposi
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface EnvironmentReportRepository extends CrudRepository<EnvironmentReportRepository, Long> {
+import com.dsm.newtrash.back.springboot.domain.report.environment.domain.EnvironmentReport;
+
+public interface EnvironmentReportRepository extends CrudRepository<EnvironmentReport, Long> {
 
 }
