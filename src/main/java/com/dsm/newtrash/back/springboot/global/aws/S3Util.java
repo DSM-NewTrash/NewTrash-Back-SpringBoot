@@ -1,5 +1,7 @@
 package com.dsm.newtrash.back.springboot.global.aws;
 
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +25,10 @@ public class S3Util {
 	private String problemDefaultImage;
 
 
-	public void delete(String objectName) {
-		amazonS3.deleteObject(bucketName, objectName);
+	public void delete(String path) {
+		String objectName = path.substring(5);
+		int index = objectName.indexOf('.');
+		amazonS3.deleteObject(bucketName, objectName.substring(0, index));
 	}
 
 	public String getQuizDefaultImage(String image) {
