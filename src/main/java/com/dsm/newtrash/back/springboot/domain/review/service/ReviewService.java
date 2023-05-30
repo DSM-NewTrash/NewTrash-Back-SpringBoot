@@ -31,7 +31,7 @@ public class ReviewService {
 			.build());
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void updateReview(Long quizId, StarRequest request) {
 		String userId = userUtil.getUserId();
 
