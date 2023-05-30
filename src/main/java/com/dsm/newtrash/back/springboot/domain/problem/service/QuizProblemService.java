@@ -52,6 +52,10 @@ public class QuizProblemService {
 	@Transactional(propagation = Propagation.MANDATORY)
 	public void deleteAllProblem(Long quizId) {
 		List<Problem> problems = problemRepository.findAllByQuizId(quizId);
+
+		for(Problem problem : problems) {
+			if(problem.getPath() != null) s3Util.delete(problem.getPath());
+		}
 		problemRepository.deleteAll(problems);
 	}
 
