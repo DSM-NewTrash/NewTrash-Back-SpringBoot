@@ -15,7 +15,7 @@ import com.dsm.newtrash.back.springboot.domain.problem.service.QuizProblemServic
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.request.QuizRequest;
 import com.dsm.newtrash.back.springboot.domain.quiz.service.QuizService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/quizs")

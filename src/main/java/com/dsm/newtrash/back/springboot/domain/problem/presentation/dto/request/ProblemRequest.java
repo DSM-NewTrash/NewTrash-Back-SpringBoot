@@ -2,10 +2,10 @@ package com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.request
 
 import java.util.List;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter

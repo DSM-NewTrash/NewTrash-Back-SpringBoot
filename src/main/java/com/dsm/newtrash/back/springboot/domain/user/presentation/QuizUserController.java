@@ -10,7 +10,7 @@ import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.Upd
 import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.response.UserResponse;
 import com.dsm.newtrash.back.springboot.domain.user.service.QuizUserService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/quizs")

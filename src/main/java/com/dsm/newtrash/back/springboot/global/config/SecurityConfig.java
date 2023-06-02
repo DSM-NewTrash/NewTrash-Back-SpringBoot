@@ -31,16 +31,10 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .httpBasic().disable()
-
-            .authorizeHttpRequests(request -> request
-                .requestMatchers(HttpMethod.POST, "/quizs").authenticated()
-                .requestMatchers(HttpMethod.GET, "/quizs/**").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/quizs/**").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/quizs/adjustment/**").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/quizs/review/**").authenticated()
-                .anyRequest().permitAll()
-            )
-
+            .authorizeRequests()
+            .antMatchers("/quizs/**").authenticated()
+            .anyRequest().permitAll()
+            .and()
             .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
             .and().apply(new FilterConfig(jwtTokenProvider))
             .and().build();

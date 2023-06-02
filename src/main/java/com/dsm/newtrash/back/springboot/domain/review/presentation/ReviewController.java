@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dsm.newtrash.back.springboot.domain.review.presentation.dto.request.StarRequest;
 import com.dsm.newtrash.back.springboot.domain.review.service.ReviewService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/quizs")
