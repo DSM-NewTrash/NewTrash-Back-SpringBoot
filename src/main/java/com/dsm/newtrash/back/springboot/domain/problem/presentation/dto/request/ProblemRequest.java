@@ -25,7 +25,6 @@ public class ProblemRequest {
 	@Size(max = 50, message = "50자 이하로 입력해주세요.")
 	private String explanation;
 
-	@NotBlank(message = "입력해주세요.")
 	private String path;
 
 	@Valid
