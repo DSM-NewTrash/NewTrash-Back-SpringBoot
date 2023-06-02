@@ -32,6 +32,8 @@ public class Quiz extends BaseIdEntity {
 
 	private String path;
 
+	private int star;
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private CategoryType category;
@@ -48,6 +50,10 @@ public class Quiz extends BaseIdEntity {
 		this.path = path;
 		this.category = category;
 		this.user = user;
+	}
+
+	public void updateStar(int star) {
+		this.star = star;
 	}
 
 }

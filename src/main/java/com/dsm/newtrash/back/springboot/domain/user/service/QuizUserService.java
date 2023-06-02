@@ -3,6 +3,9 @@ package com.dsm.newtrash.back.springboot.domain.user.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dsm.newtrash.back.springboot.domain.quiz.domain.Quiz;
+import com.dsm.newtrash.back.springboot.domain.quiz.domain.repository.QuizRepository;
+import com.dsm.newtrash.back.springboot.domain.quiz.exception.QuizNotFoundException;
 import com.dsm.newtrash.back.springboot.domain.review.service.ReviewService;
 import com.dsm.newtrash.back.springboot.domain.user.domain.User;
 import com.dsm.newtrash.back.springboot.domain.user.exception.UserNotSolveQuizException;
@@ -20,6 +23,7 @@ public class QuizUserService {
 	private final UserUtil userUtil;
 	private final BadgeUtil badgeUtil;
 	private final ReviewService reviewService;
+	private final QuizRepository quizRepository;
 
 	private static final int[] LEVEL_MAX_EXP = {0, 1000, 3000, 8000, 15000, 28000};
 
@@ -28,7 +32,9 @@ public class QuizUserService {
 		User user = userUtil.getUser();
 
 		if(!reviewService.isReviewEmpty(user.getId())) {
-			reviewService.saveReview(quizId, user.getId());
+			Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> QuizNotFoundException.EXCEPTION);
+			long star = reviewService.saveReview(quizId, user.getId());
+			quiz.updateStar((int)star);
 
 			int point = request.getCorrectAnswer()*5;
 			int exp = request.getCorrectAnswer()*10;

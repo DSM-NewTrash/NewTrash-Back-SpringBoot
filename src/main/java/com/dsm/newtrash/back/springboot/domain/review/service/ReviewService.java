@@ -1,5 +1,7 @@
 package com.dsm.newtrash.back.springboot.domain.review.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,12 @@ public class ReviewService {
 	}
 
 	@Transactional
-	public void saveReview(Long quizId, String userId) {
+	public long saveReview(Long quizId, String userId) {
 		reviewRepository.save(Review.builder()
 				.quizId(quizId)
 				.userId(userId)
 			.build());
+		return calculateReview(quizId);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -38,6 +41,16 @@ public class ReviewService {
 		Review review = reviewRepository.findByUserIdAndQuizId(userId, quizId)
 			.orElseThrow(() -> ReviewNotFoundException.EXCEPTION);
 		review.update(request.getStarRating());
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	private long calculateReview(Long quizId) {
+		List<Review> reviews = reviewRepository.findAllByQuizId(quizId);
+
+		long totalStar = 0;
+		for(Review review : reviews) totalStar += review.getStar();
+
+		return totalStar/reviews.size();
 	}
 
 }
