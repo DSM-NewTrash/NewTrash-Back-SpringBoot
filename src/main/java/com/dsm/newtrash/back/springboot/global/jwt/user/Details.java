@@ -6,12 +6,16 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.dsm.newtrash.back.springboot.domain.user.domain.User;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
 public class Details implements UserDetails {
+
+	private final User user;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,7 +29,7 @@ public class Details implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return null;
+		return user.getId();
 	}
 
 	@Override

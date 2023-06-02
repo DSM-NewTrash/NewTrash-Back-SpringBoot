@@ -24,21 +24,27 @@ public class JwtTokenProvider {
     
     private final UserDetailsService userDetailsService;
 
-    public Authentication getAuthentication(String accessToken) {
-        UserDetails details = userDetailsService.loadUserByUsername("");
+    public Authentication getAuthentication(String token) {
+        UserDetails details = userDetailsService.loadUserByUsername(getUserName(token));
         return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
     }
 
     public boolean validateToken(String token) {
         try {
-            return getBody(token).getExpiration().after(new Date());
+            Claims c = getBody(token);
+            getBody(token).getExpiration().after(new Date());
+            return true;
         } catch (Exception e) {
             throw TokenUnauthorizedException.EXCEPTION;
         }
     }
 
+    public String getUserName(String token) {
+        return getBody(token).getSubject();
+    }
+
     private Claims getBody(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token).getBody();
     }
 
 }
