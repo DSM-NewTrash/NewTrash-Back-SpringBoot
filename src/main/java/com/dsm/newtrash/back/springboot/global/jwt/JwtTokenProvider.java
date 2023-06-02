@@ -21,7 +21,7 @@ public class JwtTokenProvider {
 
     @Value("${auth.jwt.secret}")
     private String secretKey;
-    
+
     private final UserDetailsService userDetailsService;
 
     public Authentication getAuthentication(String token) {
@@ -31,7 +31,6 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Claims c = getBody(token);
             getBody(token).getExpiration().after(new Date());
             return true;
         } catch (Exception e) {
