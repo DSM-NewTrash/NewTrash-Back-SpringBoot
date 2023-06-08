@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemResponses;
 import com.dsm.newtrash.back.springboot.domain.problem.service.QuizProblemService;
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.request.QuizRequest;
+import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.response.QuizResponses;
+import com.dsm.newtrash.back.springboot.domain.quiz.service.QuizListService;
 import com.dsm.newtrash.back.springboot.domain.quiz.service.QuizService;
 
 import javax.validation.Valid;
@@ -25,6 +28,7 @@ public class QuizController {
 
 	private final QuizService quizService;
 	private final QuizProblemService quizProblemService;
+	private final QuizListService quizListService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -41,6 +45,13 @@ public class QuizController {
 	@GetMapping("/{id}")
 	public ProblemResponses solveQuiz(@PathVariable(value = "id") Long quizId) {
 		return quizProblemService.findProblemByQuizId(quizId);
+	}
+
+	@GetMapping
+	public QuizResponses getQuizs(@RequestParam(value = "option") String option,
+									@RequestParam(value = "category", required = false) String category,
+									@RequestParam(value = "auth") boolean auth) {
+		return quizListService.getQuizs(option, category, auth);
 	}
 
 }
