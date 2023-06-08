@@ -12,6 +12,7 @@ import com.dsm.newtrash.back.springboot.domain.quiz.domain.repository.QuizReposi
 import com.dsm.newtrash.back.springboot.domain.quiz.domain.type.CategoryType;
 import com.dsm.newtrash.back.springboot.domain.quiz.exception.QuizBadRequestException;
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.response.QuizResponses;
+import com.dsm.newtrash.back.springboot.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ public class QuizListService {
 
 	private final QuizRepository quizRepository;
 	private final ProblemRepository problemRepository;
+	private final S3Util s3Util;
 
 
 	@Transactional(readOnly = true)
@@ -44,7 +46,7 @@ public class QuizListService {
 	private QuizResponses.QuizResponse ofQuizResponse(Quiz quiz) {
 		return QuizResponses.QuizResponse.builder()
 			.id(quiz.getId())
-			.image(quiz.getPath())
+			.image(s3Util.getQuizDefaultImage(quiz.getPath()))
 			.title(quiz.getTitle())
 			.introduction(quiz.getIntroduction())
 			.category(quiz.getIntroduction())
