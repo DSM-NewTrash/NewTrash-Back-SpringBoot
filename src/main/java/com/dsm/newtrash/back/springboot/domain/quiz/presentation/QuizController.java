@@ -49,7 +49,7 @@ public class QuizController {
 
 	@GetMapping
 	public QuizResponses getQuizs(@RequestParam(value = "option") String option,
-									@RequestParam(value = "category", required = false) String category,
+									@RequestParam(value = "category") String category,
 									@RequestParam(value = "auth") boolean auth) {
 		return quizListService.getQuizs(option, category, auth);
 	}

@@ -30,10 +30,10 @@ public class QuizListService {
 		List<Quiz> quizs = new ArrayList<>();
 
 		if(option.equals("RECENCY")) {
-			if(category == null) quizs = quizRepository.findAllByOrderByIdDesc();
+			if(category.isEmpty()) quizs = quizRepository.findAllByOrderByIdDesc();
 			else quizs = quizRepository.findAllByCategoryOrderByIdDesc(CategoryType.valueOf(category));
 		}else if(option.equals("GOOD")) {
-			if(category == null) quizs = quizRepository.findAllByOrderByStarDesc();
+			if(category.isEmpty()) quizs = quizRepository.findAllByOrderByStarDesc();
 			else quizs = quizRepository.findAllByCategoryOrderByStarDesc(CategoryType.valueOf(category));
 		} else throw QuizBadRequestException.EXCEPTION;
 
@@ -49,7 +49,7 @@ public class QuizListService {
 			.image(s3Util.getQuizDefaultImage(quiz.getPath()))
 			.title(quiz.getTitle())
 			.introduction(quiz.getIntroduction())
-			.category(quiz.getIntroduction())
+			.category(quiz.getCategory().name())
 			.starRating(quiz.getStar())
 			.writer(quiz.getUser().getId())
 			.isCertificate(quiz.getUser().isCertificate())
