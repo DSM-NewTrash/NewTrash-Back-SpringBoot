@@ -51,6 +51,7 @@ public class QuizListService {
 			.introduction(quiz.getIntroduction())
 			.category(quiz.getIntroduction())
 			.starRating(quiz.getStar())
+			.writer(quiz.getUser().getId())
 			.isCertificate(quiz.getUser().isCertificate())
 			.totalProblem(problemRepository.countByQuizId(quiz.getId()))
 			.build();
