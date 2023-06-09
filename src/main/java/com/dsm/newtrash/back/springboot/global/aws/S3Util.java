@@ -32,7 +32,7 @@ public class S3Util {
 	}
 
 	public String getQuizDefaultImage(String image) {
-		return (image.isEmpty()) ? quizDefaultImage : image;
+		return (image == null) ? quizDefaultImage : image;
 	}
 
 	public String getProblemDefaultImage(String image) {
