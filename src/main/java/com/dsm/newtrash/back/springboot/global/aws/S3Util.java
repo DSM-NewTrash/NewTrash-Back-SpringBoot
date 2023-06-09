@@ -24,6 +24,9 @@ public class S3Util {
 	@Value("${s3.default.image.problem}")
 	private String problemDefaultImage;
 
+	@Value("${s3.default.image.my-quiz}")
+	private String myQuizDefaultImage;
+
 
 	public void delete(String path) {
 		String objectName = path.substring(5);
@@ -36,7 +39,11 @@ public class S3Util {
 	}
 
 	public String getProblemDefaultImage(String image) {
-		return (image.isEmpty()) ? problemDefaultImage : image;
+		return (image == null) ? problemDefaultImage : image;
+	}
+
+	public String getMyQuizDefaultImage(String image) {
+		return (image == null) ? myQuizDefaultImage : image;
 	}
 
 }
