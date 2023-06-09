@@ -21,7 +21,6 @@ public class QuizRequest {
 	@Size(max = 30, message = "30자 이하로 입력해주세요.")
 	private String introduction;
 
-	@NotBlank(message = "입력해주세요.")
 	private String path;
 
 	@NotBlank(message = "입력해주세요.")
