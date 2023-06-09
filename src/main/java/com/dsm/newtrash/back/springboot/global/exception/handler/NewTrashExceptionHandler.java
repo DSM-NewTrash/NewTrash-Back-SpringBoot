@@ -77,6 +77,12 @@ public class NewTrashExceptionHandler {
 		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+	protected ResponseEntity<ErrorResponse> IllegalArgumentException(Exception e) {
+		log.error("[IllegalArgumentException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ErrorResponse> handleException(Exception e) {
 		log.error("[exception] : " + e.getMessage(), e);
