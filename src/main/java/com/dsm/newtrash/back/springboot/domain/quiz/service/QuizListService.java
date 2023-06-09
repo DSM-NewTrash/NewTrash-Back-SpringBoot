@@ -49,7 +49,7 @@ public class QuizListService {
 			.image(s3Util.getQuizDefaultImage(quiz.getPath()))
 			.title(quiz.getTitle())
 			.introduction(quiz.getIntroduction())
-			.category(quiz.getCategory().name())
+			.category(quiz.getCategory().getCategory())
 			.starRating(quiz.getStar())
 			.writer(quiz.getUser().getId())
 			.isCertificate(quiz.getUser().isCertificate())

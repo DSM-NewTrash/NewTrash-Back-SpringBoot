@@ -30,7 +30,7 @@ public class MyQuizListService {
 					.image(s3Util.getMyQuizDefaultImage(quiz.getPath()))
 					.title(quiz.getTitle())
 					.introduction(quiz.getIntroduction())
-					.category(quiz.getCategory().name())
+					.category(quiz.getCategory().getCategory())
 					.build();
 			}).toList());
 
