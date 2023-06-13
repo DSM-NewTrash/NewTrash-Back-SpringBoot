@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemExplanationResponses;
 import com.dsm.newtrash.back.springboot.domain.problem.presentation.dto.response.ProblemResponses;
+import com.dsm.newtrash.back.springboot.domain.problem.service.QuizProblemExplanationService;
 import com.dsm.newtrash.back.springboot.domain.problem.service.QuizProblemService;
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.request.QuizRequest;
 import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.response.MyQuizResponses;
@@ -32,6 +34,7 @@ public class QuizController {
 	private final QuizProblemService quizProblemService;
 	private final QuizListService quizListService;
 	private final MyQuizListService myQuizListService;
+	private final QuizProblemExplanationService quizProblemExplanationService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -60,6 +63,11 @@ public class QuizController {
 	@GetMapping("/my")
 	public MyQuizResponses getMyQuizs() {
 		return myQuizListService.getMyQuizs();
+	}
+
+	@GetMapping("/answers/{id}")
+	public ProblemExplanationResponses getQuizProblemExplanation(@PathVariable(value = "id") Long quizId) {
+		return quizProblemExplanationService.getQuizProblemExplanation(quizId);
 	}
 
 }
