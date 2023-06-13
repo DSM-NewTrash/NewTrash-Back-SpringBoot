@@ -4,6 +4,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -88,6 +89,12 @@ public class NewTrashExceptionHandler {
 	@ExceptionHandler(ConstraintViolationException.class)
 	protected ResponseEntity<ErrorResponse> ConstraintViolationException(Exception e) {
 		log.error("[ConstraintViolationException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	protected ResponseEntity<ErrorResponse> HttpMessageNotReadableException(Exception e) {
+		log.error("[HttpMessageNotReadableException] : " + e.getMessage());
 		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 
