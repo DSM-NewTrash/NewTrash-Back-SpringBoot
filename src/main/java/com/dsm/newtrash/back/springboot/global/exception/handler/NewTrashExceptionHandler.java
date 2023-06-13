@@ -1,5 +1,7 @@
 package com.dsm.newtrash.back.springboot.global.exception.handler;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -80,6 +82,12 @@ public class NewTrashExceptionHandler {
 	@ExceptionHandler(IllegalArgumentException.class)
 	protected ResponseEntity<ErrorResponse> IllegalArgumentException(Exception e) {
 		log.error("[IllegalArgumentException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	protected ResponseEntity<ErrorResponse> ConstraintViolationException(Exception e) {
+		log.error("[ConstraintViolationException] : " + e.getMessage());
 		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 
