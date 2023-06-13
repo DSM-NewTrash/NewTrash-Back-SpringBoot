@@ -7,10 +7,12 @@ public class UserResponse {
 
 	private final int exp;
 	private final int point;
+	private final int correctAnswerCount;
 
-	public UserResponse(int exp, int point) {
+	public UserResponse(int exp, int point, int correctAnswerCount) {
 		this.exp = exp;
 		this.point = point;
+		this.correctAnswerCount = correctAnswerCount;
 	}
 
 

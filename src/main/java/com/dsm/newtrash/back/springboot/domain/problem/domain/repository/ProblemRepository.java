@@ -10,4 +10,6 @@ import com.dsm.newtrash.back.springboot.domain.problem.domain.Problem;
 public interface ProblemRepository extends CrudRepository<Problem, Long> {
 	List<Problem> findAllByQuizId(Long quizId);
 	int countByQuizId(Long quizId);
+	boolean existsByIdAndCorrectAnswer(Long id, Long correctAnswer);
+
 }
