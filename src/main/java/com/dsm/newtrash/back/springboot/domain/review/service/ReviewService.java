@@ -21,8 +21,8 @@ public class ReviewService {
 	private final UserUtil userUtil;
 
 	@Transactional(readOnly = true)
-	public Boolean isReviewEmpty(String userId) {
-		return reviewRepository.existsByUserId(userId);
+	public Boolean isReviewEmpty(String userId, Long quizId) {
+		return reviewRepository.existsByUserIdAndQuizId(userId, quizId);
 	}
 
 	@Transactional

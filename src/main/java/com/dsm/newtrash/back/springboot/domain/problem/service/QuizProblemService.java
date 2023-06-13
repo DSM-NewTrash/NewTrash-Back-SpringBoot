@@ -63,7 +63,7 @@ public class QuizProblemService {
 	public ProblemResponses findProblemByQuizId(Long quizId) {
 		int totalProblem = problemRepository.countByQuizId(quizId);
 		User user = userUtil.getUser();
-		if (!reviewService.isReviewEmpty(user.getId())){
+		if (!reviewService.isReviewEmpty(user.getId(), quizId)){
 			if (userUtil.getUser().getQuizLimitCount() < totalProblem) throw UserNotSolveQuizException.EXCEPTION;
 		}
 
