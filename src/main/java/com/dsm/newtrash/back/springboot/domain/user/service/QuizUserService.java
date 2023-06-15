@@ -49,7 +49,7 @@ public class QuizUserService {
 
 			Integer level = user.getBadge().getLevel();
 			if(level != 5 && LEVEL_MAX_EXP[level] < user.getExp()) {
-				user.updateBadge(badgeUtil.getBadge(level));
+				user.updateBadge(badgeUtil.getBadge(level+1));
 			}
 
 			user.updateQuizLimitCount(updatePointAndExpRequests.getSolveQuizs().size());
