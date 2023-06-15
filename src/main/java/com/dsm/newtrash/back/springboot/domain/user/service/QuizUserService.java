@@ -48,7 +48,7 @@ public class QuizUserService {
 			user.updatePointAndExp(user.getPoint()+ point, user.getExp()+exp);
 
 			Integer level = user.getBadge().getLevel();
-			if(level != 5 && LEVEL_MAX_EXP[level+1] < user.getExp()) {
+			if(level != 5 && LEVEL_MAX_EXP[level] < user.getExp()) {
 				user.updateBadge(badgeUtil.getBadge(level));
 			}
 
