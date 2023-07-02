@@ -11,13 +11,13 @@ import lombok.Getter;
 
 @Getter
 @Validated
-public class UpdatePointAndExpRequests {
+public class SolveQuizRequests {
 
 	@NotNull
-	private List<@Valid UpdatePointAndExpRequest> solveQuizs;
+	private List<@Valid SolveQuizRequest> solveQuizs;
 
 	@Getter
-	public static class UpdatePointAndExpRequest {
+	public static class SolveQuizRequest {
 
 		@NotNull(message = "입력해주세요.")
 		private Long id;

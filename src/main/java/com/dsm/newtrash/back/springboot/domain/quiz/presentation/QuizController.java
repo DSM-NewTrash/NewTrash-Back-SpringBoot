@@ -21,6 +21,7 @@ import com.dsm.newtrash.back.springboot.domain.quiz.presentation.dto.response.Qu
 import com.dsm.newtrash.back.springboot.domain.quiz.service.MyQuizListService;
 import com.dsm.newtrash.back.springboot.domain.quiz.service.QuizListService;
 import com.dsm.newtrash.back.springboot.domain.quiz.service.QuizService;
+import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.SolveQuizRequests;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -66,8 +67,9 @@ public class QuizController {
 	}
 
 	@GetMapping("/answers/{id}")
-	public ProblemExplanationResponses getQuizProblemExplanation(@PathVariable(value = "id") Long quizId) {
-		return quizProblemExplanationService.getQuizProblemExplanation(quizId);
+	public ProblemExplanationResponses getQuizProblemExplanation(@PathVariable(value = "id") Long quizId,
+																	@RequestBody @Valid SolveQuizRequests request) {
+		return quizProblemExplanationService.getQuizProblemExplanation(request);
 	}
 
 }

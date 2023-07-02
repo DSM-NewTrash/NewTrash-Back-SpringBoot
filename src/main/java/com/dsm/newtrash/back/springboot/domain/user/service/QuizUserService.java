@@ -9,7 +9,7 @@ import com.dsm.newtrash.back.springboot.domain.quiz.domain.repository.QuizReposi
 import com.dsm.newtrash.back.springboot.domain.quiz.exception.QuizNotFoundException;
 import com.dsm.newtrash.back.springboot.domain.review.service.ReviewService;
 import com.dsm.newtrash.back.springboot.domain.user.domain.User;
-import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.UpdatePointAndExpRequests;
+import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.SolveQuizRequests;
 import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.response.UserResponse;
 import com.dsm.newtrash.back.springboot.domain.user.service.util.BadgeUtil;
 import com.dsm.newtrash.back.springboot.domain.user.service.util.UserUtil;
@@ -29,7 +29,7 @@ public class QuizUserService {
 	private static final int[] LEVEL_MAX_EXP = {0, 1000, 3000, 8000, 15000, 28000};
 
 	@Transactional(rollbackFor = Exception.class)
-	public UserResponse updatePointAndExp(Long quizId, UpdatePointAndExpRequests updatePointAndExpRequests) {
+	public UserResponse updatePointAndExp(Long quizId, SolveQuizRequests updatePointAndExpRequests) {
 		User user = userUtil.getUser();
 
 		if(!reviewService.isReviewEmpty(user.getId(), quizId)) {
@@ -40,7 +40,7 @@ public class QuizUserService {
 			int correctAnswerCount = 0;
 
 
-			for(UpdatePointAndExpRequests.UpdatePointAndExpRequest request : updatePointAndExpRequests.getSolveQuizs()) {
+			for(SolveQuizRequests.SolveQuizRequest request : updatePointAndExpRequests.getSolveQuizs()) {
 				if(problemRepository.existsByIdAndCorrectAnswer(request.getId(), request.getCorrectAnswer())) correctAnswerCount++;
 			}
 			int point = correctAnswerCount * 5;

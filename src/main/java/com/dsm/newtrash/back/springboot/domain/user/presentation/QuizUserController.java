@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.UpdatePointAndExpRequests;
+import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.request.SolveQuizRequests;
 import com.dsm.newtrash.back.springboot.domain.user.presentation.dto.response.UserResponse;
 import com.dsm.newtrash.back.springboot.domain.user.service.QuizUserService;
 
@@ -22,7 +22,7 @@ public class QuizUserController {
 	private final QuizUserService quizUserService;
 
 	@PutMapping("/adjustment/{id}")
-	public UserResponse updatePointAndExp(@PathVariable("id")Long quizId, @RequestBody @Valid UpdatePointAndExpRequests request) {
+	public UserResponse updatePointAndExp(@PathVariable("id")Long quizId, @RequestBody @Valid SolveQuizRequests request) {
 		return quizUserService.updatePointAndExp(quizId, request);
 	}
 

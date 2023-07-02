@@ -19,6 +19,7 @@ public class ProblemExplanationResponses {
 		private final String form;
 		private final String question;
 		private final long correctAnswer;
+		private final long userAnswer;
 		private final String image;
 		private final List<AnswerResponse> answers;
 		private final String explanation;
