@@ -66,9 +66,8 @@ public class QuizController {
 		return myQuizListService.getMyQuizs();
 	}
 
-	@GetMapping("/answers/{id}")
-	public ProblemExplanationResponses getQuizProblemExplanation(@PathVariable(value = "id") Long quizId,
-																	@RequestBody @Valid SolveQuizRequests request) {
+	@GetMapping("/answers")
+	public ProblemExplanationResponses getQuizProblemExplanation(@RequestBody @Valid SolveQuizRequests request) {
 		return quizProblemExplanationService.getQuizProblemExplanation(request);
 	}
 
