@@ -66,8 +66,9 @@ public class QuizController {
 		return myQuizListService.getMyQuizs();
 	}
 
-	@GetMapping("/answers")
+	@PostMapping("/answers")
 	public ProblemExplanationResponses getQuizProblemExplanation(@RequestBody @Valid SolveQuizRequests request) {
+		System.out.println(request.getSolveQuizs().get(0).getCorrectAnswer());
 		return quizProblemExplanationService.getQuizProblemExplanation(request);
 	}
 
